@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/05/15 14:54:58 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:03:05 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include <unistd.h>
 # include <string.h>
+# include <fcntl.h>
 
 typedef struct s_data
 {
