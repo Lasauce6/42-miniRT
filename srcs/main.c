@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 09:57:46 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/05/26 14:54:15 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:45:38 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	main(int argc, char **argv)
 	{
 		printf("error");
 	}
-	parse_file(argv[1], &data);
+	if (parse_file(argv[1], &data))
+		write(1, "ERROR", 5);
 	data.mlx_ptr = mlx_init();
 	data.win = mlx_new_window(data.mlx_ptr, 1000, 800, "Hello world!");
 	data.img = mlx_new_image(data.mlx_ptr, 1000, 800);

@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:47:32 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/05/26 15:15:33 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:47:41 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ int	get_nb_words(char *line)
 	nb_words = 0;
 	while (line[i])
 	{
-		
+		while (line[i] && ft_isspace(line[i]))
+			i++;
+		nb_words++;
+		while (line[i] && !ft_isspace(line[i]))
+			i++;
 	}
 	return (nb_words);
 }
@@ -30,7 +34,10 @@ int	check_line(char *line, t_data *data)
 {
 	int	nb_words;
 
+	(void) data;
 	nb_words = get_nb_words(line);
+	if (nb_words != 4 || nb_words != 3 || nb_words != 6)
+		return (1);
 	return (0);
 }
 

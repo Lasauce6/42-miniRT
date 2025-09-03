@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/05/26 15:03:05 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/01 10:31:54 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINIRT_H
 
 # include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
+# include "../mlx-linux/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
@@ -32,5 +32,7 @@ typedef struct s_data
 	void	*mlx_ptr;
 	void	*win;
 }	t_data;
+
+int	parse_file(char *filename, t_data *data);
 
 #endif
