@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:42:24 by rbaticle          #+#    #+#              #
-#    Updated: 2025/09/01 10:32:31 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/09/03 11:06:06 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 SRCS_DIR = ./srcs/
 SRCS_NAMES = main.c \
-			 parsing.c
+			 parsing/parsing.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_NAMES))
 

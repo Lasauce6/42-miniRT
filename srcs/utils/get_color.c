@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   get_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/24 14:45:35 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/03 15:04:28 by rbaticle         ###   ########.fr       */
+/*   Created: 2025/09/03 12:03:11 by rbaticle          #+#    #+#             */
+/*   Updated: 2025/09/03 12:08:17 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/miniRT.h"
 
-int	ft_isspace(int c)
+int	get_color(int r, int g, int b)
 {
-	return (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t'
-		|| c == '\v');
+	return (r << 16 | g << 8 | b);
+}
+
+int	get_r(int color)
+{
+	return ((color >> 16) & 0xFF);
+}
+
+int	get_g(int color)
+{
+	return ((color >> 8) & 0xFF);
+}
+
+int get_b(int color)
+{
+	return (color & 0xFF);
 }

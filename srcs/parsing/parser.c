@@ -1,43 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:47:32 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/01 09:47:41 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:21:40 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
-int	get_nb_words(char *line)
+static int	identify(char **tokens, t_data *data)
 {
-	int	i;
-	int	nb_words;
-
-	i = 0;
-	nb_words = 0;
-	while (line[i])
-	{
-		while (line[i] && ft_isspace(line[i]))
-			i++;
-		nb_words++;
-		while (line[i] && !ft_isspace(line[i]))
-			i++;
-	}
-	return (nb_words);
+	if (!ft_strcmp(tokens[0], "A"))
+		return (parse_ambiant_light(tokens, data));
+	if (!ft_strcmp(tokens[0], "C"))
+		return (parse_camera(tokens, data));
+	if (!ft_strcmp(tokens[0], "L"))
+		return (parse_light(tokens, data));
+	if (!ft_strcmp(tokens[0], "sp"))
+		return (parse_sphere(tokens, data));
+	if (!ft_strcmp(tokens[0], "pl"))
+		return (parse_plane(tokens, data));
+	if (!ft_strcmp(tokens[0], "cy"))
+		return (parse_cylinder(tokens, data));
+	return (1); // TODO: add error message
 }
 
-int	check_line(char *line, t_data *data)
+static int	check_line(char *line, t_data *data)
 {
-	int	nb_words;
+	char	**tokens;
 
-	(void) data;
-	nb_words = get_nb_words(line);
-	if (nb_words != 4 || nb_words != 3 || nb_words != 6)
+	tokens = ft_split(line, ' ');
+	if (tokens == NULL)
 		return (1);
+	if (identify(tokens, data))
+		return (free(tokens), 1);
+	ft_free_split(tokens);
 	return (0);
 }
 
@@ -55,7 +56,11 @@ int	parse_file(char *filename, t_data *data)
 	{
 		free(line);
 		line = get_next_line(file);
-		check_line(line, data);
+		if (!ft_strcmp(line, "\n"))
+		{
+			if (check_line(line, data))
+				return (free(line), 1);
+		}
 	}
 	return (0);
 }

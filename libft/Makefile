@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/24 09:46:20 by rbaticle          #+#    #+#              #
-#    Updated: 2025/09/01 10:07:47 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/09/03 15:17:02 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 	   ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
 	   ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
 	   ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-	   ft_strcmp.c ft_strndup.c ft_isspace.c ft_atoi_base.c
+	   ft_strcmp.c ft_strndup.c ft_isspace.c ft_atoi_base.c \
+	   ft_tablen.c ft_atof.c ft_free_split.c
 OBJS = $(SRCS:.c=.o)
 
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
