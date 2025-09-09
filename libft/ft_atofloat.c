@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*   ft_atofloat.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/03 14:33:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/08 12:14:05 by rbaticle         ###   ########.fr       */
+/*   Created: 2025/09/08 12:14:22 by rbaticle          #+#    #+#             */
+/*   Updated: 2025/09/08 12:15:05 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-double	ft_atof(char *str)
+float	ft_atofloat(char *str)
 {
 	size_t	i;
-	double	res;
-	double	sign;
-	double	dec;
+	float	res;
+	float	sign;
+	float	dec;
 
 	i = 0;
 	dec = 0.1;

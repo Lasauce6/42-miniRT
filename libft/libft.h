@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:54:13 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/03 15:16:50 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:36:59 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int		ft_isspace(int c);
 int		ft_atoi_base(char *str, char *base);
 int		ft_tablen(char **split);
 double	ft_atof(char *str);
+float	ft_atofloat(char *str);
 void	ft_free_split(char **split);
+int		ft_isfloat(char *str);
 
 #endif

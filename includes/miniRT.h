@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/03 15:57:14 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:38:10 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,6 @@
 # include <string.h>
 # include <fcntl.h>
 
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	void	*mlx_ptr;
-	void	*win;
-}	t_data;
-
 typedef struct s_vec
 {
 	double	x;
@@ -40,11 +29,21 @@ typedef struct s_vec
 	double	z;
 }	t_vec;
 
-typedef struct s_ambiant_light
+typedef enum e_obj_id
+{
+	ambient_light,
+	camera,
+	light,
+	sphere,
+	plane,
+	cylinder,
+}	t_obj_id;
+
+typedef struct s_ambient_light
 {
 	float	ratio;
 	int		color;
-}	t_ambiant_light;
+}	t_ambient_light;
 
 typedef struct s_camera
 {
@@ -54,9 +53,69 @@ typedef struct s_camera
 	float	scale;
 }	t_camera;
 
+typedef struct s_light
+{
+	t_vec	coords;
+	float	ratio;
+	int		color;
+}	t_light;
+
+typedef struct s_sphere
+{
+	t_vec	coords;
+	float	diam;
+	int		color;
+}	t_sphere;
+
+typedef struct s_plane
+{
+	t_vec	coords;
+	t_vec	vect;
+	int		color;
+}	t_plane;
+
+typedef struct s_cylinder
+{
+	t_vec	coords;
+	t_vec	axis;
+	float	diam;
+	float	height;
+	int		color;
+}	t_cylinder;
+
+typedef union u_obj
+{
+	t_sphere	sphere;
+	t_plane		plane;
+	t_cylinder	cylinder;
+}	t_obj_union;
+
+typedef struct s_obj
+{
+	t_obj_id		id;
+	t_obj_union		object;
+	struct s_obj	*next;
+}	t_obj;
+
+typedef struct s_data
+{
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	void			*mlx_ptr;
+	void			*win;
+	t_camera		camera;
+	t_ambient_light	ambient;
+	t_light			*light;
+	t_obj			*objs;
+}	t_data;
+
 // Parsing
 int	parse_file(char *filename, t_data *data);
-int	parse_ambiant_light(char **tokens, t_data *data);
+int	parse_ambient_light(char **tokens, t_data *data);
+int	parse_vector(char *str, t_vec *vec);
 
 // Utils
 int	get_color(int r, int g, int b);
