@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/09 13:38:10 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/15 17:04:20 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "../mlx-linux/mlx.h"
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
@@ -41,8 +42,9 @@ typedef enum e_obj_id
 
 typedef struct s_ambient_light
 {
-	float	ratio;
-	int		color;
+	t_obj_id	id;
+	float		ratio;
+	int			color;
 }	t_ambient_light;
 
 typedef struct s_camera
@@ -55,9 +57,10 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	t_vec	coords;
-	float	ratio;
-	int		color;
+	t_vec			coords;
+	float			ratio;
+	int				color;
+	struct s_light	*next;
 }	t_light;
 
 typedef struct s_sphere
@@ -112,15 +115,23 @@ typedef struct s_data
 	t_obj			*objs;
 }	t_data;
 
-// Parsing
+// ## Parsing ##
+// parse_light.c
 int	parse_file(char *filename, t_data *data);
 int	parse_ambient_light(char **tokens, t_data *data);
+// parse_utils.c
 int	parse_vector(char *str, t_vec *vec);
+int	parse_color(char *str, int *color);
+int	parse_float(char *str, float *fl);
 
-// Utils
+// ## Utils ##
+// get_color.c
 int	get_color(int r, int g, int b);
 int	get_r(int color);
 int	get_g(int color);
 int	get_b(int color);
+// numbers.c
+int	is_float(char *str);
+int	is_ulong(char *str);
 
 #endif

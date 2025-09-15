@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:30:54 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/09 17:18:31 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/15 14:13:20 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,27 @@ int	parse_color(char *str, int *color)
 
 	i = -1;
 	split = ft_split(str, ',');
+	if (split == NULL)
+		return (1);
 	while (split && split[++i])
-		if (!is_(split[i]))
+		if (!is_ulong(split[i]))
 			return (ft_free_split(split), 1);
 	if (ft_tablen(split) != 3)
 		return (ft_free_split(split), 1);
+	else if (ft_atoi(split[0]) > 255 || ft_atoi(split[0]) < 0
+		|| ft_atoi(split[1]) > 255 || ft_atoi(split[1]) < 0
+		|| ft_atoi(split[2]) > 255 || ft_atoi(split[2]) < 0)
+		return (ft_free_split(split), 1);
 	else
-	{
-		*color = get_color(atoi())
-	}
+		*color = get_color(atoi(split[0]), atoi(split[1]), atoi(split[2]));
+	ft_free_split(split);
+	return (0);
+}
+
+int	parse_float(char *str, float *fl)
+{
+	if (!is_float(str))
+		return (1);
+	*fl = ft_atofloat(str);
 	return (0);
 }
