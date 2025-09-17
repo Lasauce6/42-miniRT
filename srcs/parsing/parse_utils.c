@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:30:54 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/15 14:13:20 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/17 10:24:02 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,13 @@ int	parse_float(char *str, float *fl)
 	if (!is_float(str))
 		return (1);
 	*fl = ft_atofloat(str);
+	return (0);
+}
+
+int	parse_ulong(char *str, size_t *n)
+{
+	if (!is_ulong(str))
+		return (1);
+	*n = (size_t) ft_atoi(str);
 	return (0);
 }

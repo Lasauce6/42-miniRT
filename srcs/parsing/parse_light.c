@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:49:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/15 17:15:04 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/17 10:23:21 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,25 @@ int	parse_light(char **tokens, t_data *data)
 		l->next = data->light;
 		data->light = l;
 	}
+	return (0);
+}
+
+int	parse_camera(char **tokens, t_data *data)
+{
+	t_camera	c;
+
+	if (data->camera.id)
+		return (1); // TODO: error message
+	if (ft_tablen(tokens) != 4)
+		return (1); // TODO: error message
+	c.id = camera;
+	if (parse_vector(tokens[1], &c.coords))
+		return (1); // TODO: error message
+	if (parse_vector(tokens[2], &c.orient))
+		return (1);
+	if (parse_ulong(tokens[3], &c.fov))
+		return (1); // TODO: error message
+	normalize(&c.orient);
+	data->camera = c;
 	return (0);
 }
