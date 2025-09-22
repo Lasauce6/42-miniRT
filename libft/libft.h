@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:54:13 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/22 14:47:48 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:55:00 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,13 @@ int		ft_printf(const char *str, ...);
 // Added
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(const char *s, size_t n);
+int		ft_isspace(int c);
+int		ft_atoi_base(char *str, char *base);
+int		ft_tablen(char **split);
+double	ft_atof(char *str);
+float	ft_atofloat(char *str);
+void	ft_free_split(char **split);
+int		ft_isfloat(char *str);
+char	**ft_split_max(char const *s, char *c);
 
 #endif

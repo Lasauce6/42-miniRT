@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:42:24 by rbaticle          #+#    #+#              #
-#    Updated: 2025/05/15 15:30:32 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/09/19 14:46:36 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,16 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 SRCS_DIR = ./srcs/
-SRCS_NAMES = main.c
+SRCS_NAMES = main.c \
+			 parsing/parser.c \
+			 parsing/parse_light.c \
+			 parsing/parse_objs.c \
+			 parsing/parse_utils.c \
+			 utils/get_color.c \
+			 utils/numbers.c \
+			 utils/obj_utils.c \
+			 utils/vector.c \
+			 utils/vector2.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_NAMES))
 
@@ -25,34 +34,34 @@ OBJS = $(addprefix $(OBJ_DIR), $(SRCS_NAMES:.c=.o))
 LIBFT_DIR = ./libft/
 LIBFT_LIB = ./libft/libft.a
 
-MLX_DIR = ./minilibx-linux/
-MLX_LIB = ./minilibx-linux/libmlx.a
+MLX_DIR = ./mlx-linux/
+MLX_LIB = ./mlx-linux/libmlx.a
 
 INCLUDES = ./includes/
 HEADER_FILES = miniRT.h
 HEADERS = $(addprefix $(INCLUDES), $(HEADER_FILES))
 
-CFLAGS_MAIN = -L$(MLX_DIR) -lX11 -lXext -lmlx -lm
-CFLAGS_MAIN += -L$(LIBFT_DIR) -lft
+CFLAGS += -L $(MLX_DIR) -lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+CFLAGS += -L $(LIBFT_DIR) -lft
 # CFLAGS += -lm
 
 all: $(NAME)
 
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
-	$(CC) $(CFLAGS) -I $(INCLUDES) $(OBJS) $(CFLAGS_MAIN) -o $(NAME)
+	$(CC) -I $(INCLUDES) $(OBJS) $(CFLAGS) -o $(NAME)
 
 $(OBJ_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
+	$(CC) -I $(INCLUDES) -c $< $(CFLAGS) -o $@
 
 fsan: $(LIBFT_LIB) $(MLX_LIB) $(HEADERS)
-	$(CC) $(CFLAGS) -I $(INCLUDES) $(SRCS) $(CFLAGS_MAIN) -fsanitize=address -g3 -o $(NAME)
+	$(CC) -I $(INCLUDES) $(SRCS) $(CFLAGS) -fsanitize=address -g3 -o $(NAME)
 
 debug: $(LIBFT_LIB) $(MLX_LIB) $(HEADERS)
-	$(CC) $(CFLAGS) -I $(INCLUDES) $(SRCS) $(CFLAGS_MAIN) -g3 -o $(NAME)
+	$(CC) -I $(INCLUDES) $(SRCS) $(CFLAGS) -g3 -o $(NAME)
 
 $(LIBFT_LIB):
-	@make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR) gnl
 
 $(MLX_LIB):
 	@make -C $(MLX_DIR)
