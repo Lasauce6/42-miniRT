@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/17 10:24:16 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:34:41 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum e_obj_id
 	sphere,
 	plane,
 	cylinder,
+	null,
 }	t_obj_id;
 
 typedef struct s_ambient_light
@@ -117,9 +118,16 @@ typedef struct s_data
 }	t_data;
 
 // ## Parsing ##
-// parse_light.c
+// parsing.c
 int		parse_file(char *filename, t_data *data);
+// parse_light.c
 int		parse_ambient_light(char **tokens, t_data *data);
+int		parse_light(char **tokens, t_data *data);
+int		parse_camera(char **tokens, t_data *data);
+// parse_objects.c
+int		parse_sphere(char **tokens, t_data *data);
+int		parse_plane(char **tokens, t_data *data);
+int		parse_cylinder(char **tokens, t_data *data);
 // parse_utils.c
 int		parse_vector(char *str, t_vec *vec);
 int		parse_color(char *str, int *color);
@@ -142,5 +150,9 @@ t_vec	vec_sub(t_vec a, t_vec b);
 t_vec	vec_add(t_vec a, t_vec b);
 t_vec	vec_mul(t_vec v, float f);
 t_vec	*normalize(t_vec *v);
+// obj_utils.c
+void	push_object(t_obj *obj, t_obj **objs);
+t_obj	*create_object(t_data *data, t_obj_id id);
+void	free_objects(t_obj **objs);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:49:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/17 10:23:21 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:36:42 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	parse_ambient_light(char **tokens, t_data *data)
 
 	if (ft_tablen(tokens) != 3)
 		return (1); // TODO: error message
-	if (data->ambient.id)
+	if (data->ambient.id == ambient_light)
 		return (1); // TODO: error message
 	if (parse_color(tokens[2], &l.color))
 		return (1); // TODO: error message
@@ -41,9 +41,9 @@ int	parse_light(char **tokens, t_data *data)
 		return (free(l), 1); // TODO: error message
 	if (parse_vector(tokens[1], &l->coords))
 		return (free(l), 1); // TODO: error message
-	if (parse_float(tokens[2]), &l->ratio)
+	if (parse_float(tokens[2], &l->ratio))
 		return (free(l), 1); // TODO: error message
-	if (parse_color(tokens[3]), &l->color)
+	if (parse_color(tokens[3], &l->color))
 		return (free(l), 1); // TODO: error message
 	if (data->light == NULL)
 		data->light = l;
@@ -59,7 +59,7 @@ int	parse_camera(char **tokens, t_data *data)
 {
 	t_camera	c;
 
-	if (data->camera.id)
+	if (data->camera.id == camera)
 		return (1); // TODO: error message
 	if (ft_tablen(tokens) != 4)
 		return (1); // TODO: error message
