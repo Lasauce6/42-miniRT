@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:42:24 by rbaticle          #+#    #+#              #
-#    Updated: 2025/10/16 15:56:43 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/10/16 17:33:47 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ HEADERS = $(addprefix $(INCLUDES), $(HEADER_FILES))
 
 CFLAGS += -L $(MLX_DIR) -lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 CFLAGS += -L $(LIBFT_DIR) -lft
-# CFLAGS += -lm
 
 all: $(NAME)
 
