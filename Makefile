@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:42:24 by rbaticle          #+#    #+#              #
-#    Updated: 2025/09/19 14:46:36 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/10/16 15:56:43 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,17 @@ SRCS_NAMES = main.c \
 			 parsing/parse_light.c \
 			 parsing/parse_objs.c \
 			 parsing/parse_utils.c \
-			 utils/get_color.c \
+			 utils/color.c \
 			 utils/numbers.c \
 			 utils/obj_utils.c \
+			 utils/ray_utils.c \
 			 utils/vector.c \
-			 utils/vector2.c
+			 utils/vector2.c \
+			 utils/vector3.c \
+			 rt/ray.c \
+			 rt/hit.c \
+			 rt/hit_cylinder.c \
+			 rt/light.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_NAMES))
 

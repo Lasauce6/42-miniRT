@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:49:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/19 15:36:42 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:59:49 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,44 @@ int	parse_light(char **tokens, t_data *data)
 	return (0);
 }
 
+void	calculate_px00_loc(t_camera *cam, t_vec *axisW)
+{
+	t_vec	px_aux;
+	t_vec	aux[4];
+	t_vec	vp_up_left;
+	t_vec	halfdist;
+
+	aux[0] = vec_div_scalar(cam->vp_u, 2);
+	aux[1] = vec_div_scalar(cam->vp_v, 2);
+	aux[2] = vec_add(aux[0], aux[1]);
+	aux[3] = vec_sub(cam->coords, *axisW);
+	vp_up_left = vec_sub(aux[3], aux[2]);
+	px_aux = vec_add(cam->px_dlt_u, cam->px_dlt_v);
+	halfdist = vec_mul_scalar(px_aux, 0.5);
+	cam->px00_loc = vec_add(vp_up_left, halfdist);
+}
+
+void	calculate_viewport(t_camera *cam)
+{
+	t_vec	axis[3];
+
+	cam->focal_len = 1.0;
+	cam->vp_w = 2.0 * tan(deg2rad(cam->fov) / 2);
+	cam->vp_h = cam->vp_w * ((double) HEIGHT / (double) WIDTH);
+	cam->center = cam->coords;
+	cam->vup = vector(0, 1, 0);
+	axis[2] = vec_mul_scalar(cam->orient, -1);
+	if (fabs(vec_dot_product(cam->vup, axis[2])) == 1)
+		axis[2].x += 0.001;
+	axis[0] = normalize(vec_cross_product(cam->vup, axis[2]));
+	axis[1] = vec_cross_product(axis[2], axis[0]);
+	cam->vp_u = vec_mul_scalar(axis[0], cam->vp_w);
+	cam->vp_v = vec_mul_scalar(vec_mul_scalar(axis[1], -1), cam->vp_h);
+	cam->px_dlt_u = vec_div_scalar(cam->vp_u, WIDTH);
+	cam->px_dlt_v = vec_div_scalar(cam->vp_v, HEIGHT);
+	calculate_px00_loc(cam, &axis[2]);
+}
+
 int	parse_camera(char **tokens, t_data *data)
 {
 	t_camera	c;
@@ -70,7 +108,8 @@ int	parse_camera(char **tokens, t_data *data)
 		return (1);
 	if (parse_ulong(tokens[3], &c.fov))
 		return (1); // TODO: error message
-	normalize(&c.orient);
+	c.orient = normalize(c.orient);
 	data->camera = c;
+	calculate_viewport(&c);
 	return (0);
 }

@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_color.c                                        :+:      :+:    :+:   */
+/*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/03 12:03:11 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/03 12:08:17 by rbaticle         ###   ########.fr       */
+/*   Created: 2025/10/13 11:20:53 by rbaticle          #+#    #+#             */
+/*   Updated: 2025/10/16 14:34:34 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-int	get_color(int r, int g, int b)
+t_vec	vec_mul_scalar(t_vec v, double t)
 {
-	return (r << 16 | g << 8 | b);
+	v.x *= t;
+	v.y *= t;
+	v.z *= t;
+	return (v);
 }
 
-int	get_r(int color)
+t_vec	vec_div_scalar(t_vec v, double t)
 {
-	return ((color >> 16) & 0xFF);
+	v.x /= t;
+	v.y /= t;
+	v.z /= t;
+	return (v);
 }
 
-int	get_g(int color)
+t_vec	unitary_vector(t_vec v)
 {
-	return ((color >> 8) & 0xFF);
+	return (vec_div_scalar(v, veclen(v)));
 }
 
-int get_b(int color)
+double	veclen_squared(t_vec vec)
 {
-	return (color & 0xFF);
+	return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }

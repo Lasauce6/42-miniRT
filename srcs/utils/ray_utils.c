@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   ray_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/17 10:13:45 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/09 10:59:01 by rbaticle         ###   ########.fr       */
+/*   Created: 2025/10/16 13:32:26 by rbaticle          #+#    #+#             */
+/*   Updated: 2025/10/16 13:35:41 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_vec	vector(float x, float y, float z)
+t_vec	ray_at(t_ray ray, double t)
 {
-	t_vec	v;
+	t_vec	tmp;
 
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	return (v);
+	tmp = vec_mul_scalar(ray.dir, t);
+	return (vec_add(ray.origin, tmp));
 }
 
-float	veclen(t_vec v)
+t_ray	new_ray(t_vec origin, t_vec dir)
 {
-	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
-}
+	t_ray	new;
 
-t_vec	normalize(t_vec v)
-{
-	float	norm;
-
-	norm = 1 / veclen(v);
-	v.x *= norm;
-	v.y *= norm;
-	v.z *= norm;
-	return (v);
+	new.origin = vector(origin.x, origin.y, origin.z);
+	new.dir = vector(dir.x, dir.y, dir.z);
+	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:30:54 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/17 10:24:02 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:02:16 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	parse_vector(char *str, t_vec *vec)
 	return (0);
 }
 
-int	parse_color(char *str, int *color)
+int	parse_color(char *str, t_rgb *color)
 {
 	int		i;
 	char	**split;

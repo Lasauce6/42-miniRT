@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 13:59:45 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/15 14:02:53 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:24:01 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,14 @@ int	is_ulong(char *str)
 			return (0);
 	}
 	return (1);
+}
+
+double	deg2rad(double deg)
+{
+	return (deg * (M_PI / 180.0));
+}
+
+double	rad2deg(double rad)
+{
+	return (rad * (180.0 / M_PI));
 }
