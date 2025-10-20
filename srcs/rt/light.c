@@ -6,13 +6,14 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 15:18:36 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/16 15:52:26 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:55:58 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-static double	calculate_light(t_vec pos, t_vec point, t_data *data, t_hit *rec)
+static double	calculate_light(t_vec pos, t_vec point, t_data *data,
+			t_hit *rec)
 {
 	t_ray	light;
 	double	magnitude;
@@ -20,17 +21,17 @@ static double	calculate_light(t_vec pos, t_vec point, t_data *data, t_hit *rec)
 	t_hit	light_rec;
 
 	light.origin = pos;
-	light.dir = vec_sub(light.origin, point);
-	magnitude = veclen(light.dir);
-	light.dir = vec_sub(point, light.origin);
-	light.dir = normalize(light.dir);
+	light.dir = vec_sub(&light.origin, &point);
+	magnitude = veclen(&light.dir);
+	light.dir = vec_sub(&point, &light.origin);
+	light.dir = normalize(&light.dir);
 	light_rec = nearest_hit(&light, data);
-	light.dir = vec_sub(light.origin, point);
-	light.dir = normalize(light.dir);
+	light.dir = vec_sub(&light.origin, &point);
+	light.dir = normalize(&light.dir);
 	if (light_rec.t > 0.0 && light_rec.t + 1e-6 < magnitude)
 		dotprod = -1.0;
 	else
-		dotprod = vec_dot_product(rec->normal, light.dir);
+		dotprod = vec_dot_product(&rec->normal, &light.dir);
 	return (dotprod);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/16 17:45:34 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:19:34 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <stdbool.h>
 # include <limits.h>
 
-# define WIDTH 1000
-# define HEIGHT 800
+# define WIDTH 1500
+# define HEIGHT 1000
 # define MIN 1
 # define MAX 2
 
@@ -67,7 +67,7 @@ typedef enum e_obj_id
 typedef struct s_ambient_light
 {
 	t_obj_id	id;
-	float		ratio;
+	double		ratio;
 	t_rgb		color;
 }	t_ambient_light;
 
@@ -92,31 +92,31 @@ typedef struct s_camera
 typedef struct s_light
 {
 	t_vec			coords;
-	float			ratio;
+	double			ratio;
 	t_rgb			color;
 	struct s_light	*next;
 }	t_light;
 
 typedef struct s_sphere
 {
-	t_vec	coords;
-	float	radius;
+	t_vec	pos;
+	double	radius;
 	t_rgb	color;
 }	t_sphere;
 
 typedef struct s_plane
 {
-	t_vec	coords;
-	t_vec	normal;
+	t_vec	pos;
+	t_vec	dir;
 	t_rgb	color;
 }	t_plane;
 
 typedef struct s_cylinder
 {
-	t_vec	coords;
-	t_vec	axis;
-	float	radius;
-	float	height;
+	t_vec	pos;
+	t_vec	dir;
+	double	radius;
+	double	height;
 	t_rgb	color;
 	bool	hit[3];
 }	t_cylinder;
@@ -204,7 +204,7 @@ int		parse_cylinder(char **tokens, t_data *data);
 // parse_utils.c
 int		parse_vector(char *str, t_vec *vec);
 int		parse_color(char *str, t_rgb *color);
-int		parse_float(char *str, float *fl);
+int		parse_double(char *str, double *d);
 int		parse_ulong(char *str, size_t *n);
 
 // ## RT ##
@@ -226,26 +226,25 @@ t_rgb	mix_color(t_rgb col1, t_rgb col2, double ratio);
 t_vec	color_to_vec(t_rgb col);
 int		average_color(t_vec color);
 // numbers.c
-int		is_float(char *str);
+int		is_double(char *str);
 int		is_ulong(char *str);
 double	deg2rad(double deg);
 double	rad2deg(double rad);
+double	ft_atod(char *str);
 // vector.c
 t_vec	vector(float x, float y, float z);
-float	veclen(t_vec v);
-float	vec_dist(t_vec v1, t_vec v2);
-t_vec	normalize(t_vec v);
+double	veclen(t_vec *v);
+t_vec	normalize(t_vec *v);
 // vector2.c
-t_vec	vec_add(t_vec v1, t_vec v2);
-t_vec	vec_sub(t_vec v1, t_vec v2);
-t_vec	vec_mul(t_vec v1, t_vec v2);
-double	vec_dot_product(t_vec v1, t_vec v2);
-t_vec	vec_cross_product(t_vec v1, t_vec v2);
+t_vec	vec_add(t_vec *v1, t_vec *v2);
+t_vec	vec_sub(t_vec *v1, t_vec *v2);
+double	vec_dot_product(t_vec *v1, t_vec *v2);
+t_vec	vec_cross_product(t_vec *v1, t_vec *v2);
 // vector3.c
-t_vec	vec_mul_scalar(t_vec v, double t);
-t_vec	vec_div_scalar(t_vec v, double t);
-t_vec	unitary_vector(t_vec v);
-double	veclen_squared(t_vec vec);
+t_vec	vec_mul_scalar(t_vec *v, double t);
+t_vec	vec_div_scalar(t_vec *v, double t);
+t_vec	unitary_vector(t_vec *v);
+double	veclen_squared(t_vec *vec);
 // obj_utils.c
 void	push_object(t_obj *obj, t_obj **objs);
 t_obj	*create_object(t_data *data, t_obj_id id);

@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 09:57:46 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/16 16:07:37 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:00:39 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	main(int argc, char **argv)
 
 	data = init_data();
 	if (argc != 2)
-		return (write(1, "ERROR", 5), 1);
+		return (write(2, "ERROR\n", 6), 1);
 	if (parse_file(argv[1], &data))
-		return (write(1, "ERROR", 5), 1);
+		return (write(2, "ERROR\n", 6), 1);
 	data.mlx_ptr = mlx_init();
 	data.win = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "MiniRT");
 	data.img = mlx_new_image(data.mlx_ptr, WIDTH, HEIGHT);

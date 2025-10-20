@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 14:12:13 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/16 17:45:03 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/16 22:19:08 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ static bool	hit_plane(t_ray *ray, t_plane plane, t_hit *rec)
 	double	d;
 	double	t;
 
-	denom = vec_dot_product(plane.normal, ray->dir);
+	denom = vec_dot_product(&plane.dir, &ray->dir);
 	if (fabs(denom) < 1e-6)
 		return (false);
-	d = vec_dot_product(plane.normal, plane.coords);
-	t = (d - vec_dot_product(plane.normal, ray->origin)) / denom;
+	d = vec_dot_product(&plane.dir, &plane.pos);
+	t = (d - vec_dot_product(&plane.dir, &ray->origin)) / denom;
 	if (t < rec->ray_tmin || t > rec->ray_tmax)
 		return (false);
 	rec->t = t;
 	rec->point = ray_at(*ray, t);
-	rec->normal = plane.normal;
+	rec->normal = plane.dir;
 	return (true);
 }
 
@@ -36,10 +36,10 @@ static bool	hit_sphere(t_ray *ray, t_sphere sphere, t_hit *rec)
 	t_hcalc	calc;
 	t_vec	oc;
 
-	oc = vec_sub(ray->origin, sphere.coords);
-	calc.a = veclen_squared(ray->dir);
-	calc.b = vec_dot_product(oc, ray->dir);
-	calc.c = veclen_squared(oc) - (sphere.radius * sphere.radius);
+	oc = vec_sub(&ray->origin, &sphere.pos);
+	calc.a = veclen_squared(&ray->dir);
+	calc.b = vec_dot_product(&oc, &ray->dir);
+	calc.c = veclen_squared(&oc) - (sphere.radius * sphere.radius);
 	calc.disc = (calc.b * calc.b) - (calc.a * calc.c);
 	if (calc.disc < 0)
 		return (false);
@@ -53,8 +53,8 @@ static bool	hit_sphere(t_ray *ray, t_sphere sphere, t_hit *rec)
 	}
 	rec->t = calc.root;
 	rec->point = ray_at(*ray, rec->t);
-	rec->normal = vec_sub(rec->point, sphere.coords);
-	rec->normal = normalize(rec->normal);
+	rec->normal = vec_sub(&rec->point, &sphere.pos);
+	rec->normal = normalize(&rec->normal);
 	return (true);
 }
 
@@ -63,16 +63,16 @@ static bool	hit_cylinder(t_ray *ray, t_cylinder cylinder, t_hit *rec)
 	t_disk	disk;
 	t_ray	axis;
 
-	axis.origin = cylinder.coords;
-	axis.dir = cylinder.axis;
-	disk.pos = cylinder.coords;
-	disk.dir = cylinder.axis;
+	axis.origin = cylinder.pos;
+	axis.dir = cylinder.dir;
+	disk.pos = cylinder.pos;
+	disk.dir = cylinder.dir;
 	disk.rad = cylinder.radius;
 	cylinder.hit[BOT] = hit_disk(ray, &disk, rec);
 	if (cylinder.hit[BOT])
 		rec->ray_tmax = rec->t;
 	disk.pos = ray_at(axis, cylinder.height);
-	disk.dir = vec_mul_scalar(cylinder.axis, -1);
+	disk.dir = vec_mul_scalar(&cylinder.dir, -1);
 	cylinder.hit[BODY] = hit_body_cylinder(ray, cylinder, rec);
 	if (cylinder.hit[BODY])
 		rec->ray_tmax = rec->t;
