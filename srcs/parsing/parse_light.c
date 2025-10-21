@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:49:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/17 15:19:10 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/21 12:06:33 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,19 @@ int	parse_light(char **tokens, t_data *data)
 
 void	calculate_px00_loc(t_camera *cam, t_vec *axisW)
 {
-	t_vec	px_aux;
-	t_vec	aux[4];
 	t_vec	vp_up_left;
-	t_vec	halfdist;
+	t_vec	half_u;
+	t_vec	half_v;
+	t_vec	px_half;
 
-	aux[1] = vec_div_scalar(&cam->vp_u, 2.0);
-	aux[1] = vec_div_scalar(&cam->vp_v, 2.0);
-	aux[2] = vec_add(&aux[0], &aux[1]);
-	aux[3] = vec_sub(&cam->coords, axisW);
-	vp_up_left = vec_sub(&aux[3], &aux[2]);
-	px_aux = vec_add(&cam->px_dlt_u, &cam->px_dlt_v);
-	halfdist = vec_mul_scalar(&px_aux, 0.5);
-	cam->px00_loc = vec_add(&vp_up_left, &halfdist);
+	half_u = vec_div_scalar(&cam->vp_u, 2.0);
+	half_v = vec_div_scalar(&cam->vp_v, 2.0);
+	vp_up_left = vec_sub(&cam->coords, axisW);
+	vp_up_left = vec_sub(&vp_up_left, &half_u);
+	vp_up_left = vec_sub(&vp_up_left, &half_v);
+	px_half = vec_add(&cam->px_dlt_u, &cam->px_dlt_v);
+	px_half = vec_mul_scalar(&px_half, 0.5);
+	cam->px00_loc = vec_add(&vp_up_left, &px_half);
 }
 
 void	calculate_viewport(t_camera *cam)

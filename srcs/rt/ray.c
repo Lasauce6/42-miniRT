@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:31:10 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/17 15:29:16 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/21 12:46:47 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,9 @@ static t_rgb	ray_color(t_ray *ray, t_data *data)
 
 static double	rand_number(void)
 {
-	double	val;
-	int		readval;
-
 	if (SAMPLES == 1)
 		return (0.5);
-	readval = rand();
-	if (readval < 0)
-		readval *= -1;
-	val = (double)readval;
-	while (val >= 1)
-		val /= 10;
-	return (val);
+	return ((double) rand() / RAND_MAX);
 }
 
 static t_vec	rand_pixel(t_vec deltu, t_vec deltv)

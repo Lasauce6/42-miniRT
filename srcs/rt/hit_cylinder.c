@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 14:51:57 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/16 19:55:15 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/21 12:59:01 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static bool	calc_hit_cylinder(t_hcalc calc, t_ray *ray, t_cylinder cylinder,
 	tmp = ray_at(*ray, calc.root);
 	tmp = vec_sub(&tmp, &cylinder.pos);
 	projection = vec_dot_product(&cylinder.dir, &tmp);
-	if (projection < 0 || projection > cylinder.height)
+	if (projection < -cylinder.height / 2.0
+		|| projection > cylinder.height / 2.0)
 		return (false);
 	rec->t = calc.root;
 	rec->point = ray_at(*ray, calc.root);
@@ -94,6 +95,8 @@ bool	hit_disk(t_ray *ray, t_disk *disk, t_hit *rec)
 		return (false);
 	rec->t = t;
 	rec->point = p;
-	rec->normal = vec_mul_scalar(&disk->dir, -1);
+	rec->normal = disk->dir;
+	if (vec_dot_product(&ray->dir, &rec->normal) > 0)
+		rec->normal = vec_mul_scalar(&rec->normal, -1);
 	return (true);
 }

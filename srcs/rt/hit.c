@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 14:12:13 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/16 22:19:08 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/21 12:57:45 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,20 @@ static bool	hit_sphere(t_ray *ray, t_sphere sphere, t_hit *rec)
 static bool	hit_cylinder(t_ray *ray, t_cylinder cylinder, t_hit *rec)
 {
 	t_disk	disk;
-	t_ray	axis;
+	t_vec	half_height;
 
-	axis.origin = cylinder.pos;
-	axis.dir = cylinder.dir;
-	disk.pos = cylinder.pos;
+	half_height = vec_mul_scalar(&cylinder.dir, cylinder.height / 2.0);
+	disk.pos = vec_sub(&cylinder.pos, &half_height);
 	disk.dir = cylinder.dir;
 	disk.rad = cylinder.radius;
 	cylinder.hit[BOT] = hit_disk(ray, &disk, rec);
 	if (cylinder.hit[BOT])
 		rec->ray_tmax = rec->t;
-	disk.pos = ray_at(axis, cylinder.height);
-	disk.dir = vec_mul_scalar(&cylinder.dir, -1);
 	cylinder.hit[BODY] = hit_body_cylinder(ray, cylinder, rec);
 	if (cylinder.hit[BODY])
 		rec->ray_tmax = rec->t;
+	disk.pos = vec_add(&cylinder.pos, &half_height);
+	disk.dir = vec_mul_scalar(&cylinder.dir, -1);
 	cylinder.hit[TOP] = hit_disk(ray, &disk, rec);
 	if (cylinder.hit[TOP])
 		rec->ray_tmax = rec->t;
@@ -98,8 +97,8 @@ t_hit	nearest_hit(t_ray *ray, t_data *data)
 	t_obj	*obj;
 	t_hit	rec;
 
-	rec.ray_tmin = 0.0000001;
-	rec.ray_tmax = INT_MAX;
+	rec.ray_tmin = 1e-8;
+	rec.ray_tmax = INFINITY;
 	rec.t = -1.0;
 	obj = data->objs;
 	while (obj)
