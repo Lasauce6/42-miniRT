@@ -1,46 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/17 10:13:45 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/16 19:58:41 by rbaticle         ###   ########.fr       */
+/*   Created: 2025/10/13 11:20:53 by rbaticle          #+#    #+#             */
+/*   Updated: 2025/10/16 19:49:31 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_vec	vector(float x, float y, float z)
+t_vec	vec_mul_scalar(t_vec *v, double t)
 {
-	t_vec	v;
+	t_vec	res;
 
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	return (v);
+	res = vector(v->x * t, v->y * t, v->z * t);
+	return (res);
 }
 
-double	veclen(t_vec *v)
+t_vec	vec_div_scalar(t_vec *v, double t)
 {
-	return (sqrt(v->x * v->x + v->y * v->y + v->z * v->z));
+	t_vec	res;
+
+	res = vector (v->x / t, v->y / t, v->z / t);
+	return (res);
 }
 
-t_vec	normalize(t_vec *v)
+t_vec	unitary_vector(t_vec *v)
 {
-	t_vec	new;
-	double	len;
-	double	inv_len;
+	return (vec_div_scalar(v, veclen(v)));
+}
 
-	new = vector(v->x, v->y, v->z);
-	len = veclen(&new);
-	if (len > 0)
-	{
-		inv_len = 1.0 / len;
-		new.x = v->x * inv_len;
-		new.y = v->y * inv_len;
-		new.z = v->z * inv_len;
-	}
-	return (new);
+double	veclen_squared(t_vec *vec)
+{
+	return (vec->x * vec->x + vec->y * vec->y + vec->z * vec->z);
 }

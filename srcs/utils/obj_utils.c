@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 12:37:03 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/19 18:21:12 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:33:35 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,15 @@ void	free_objects(t_obj **objs)
 		free(tmp);
 	}
 	*objs = 0;
+}
+
+t_rgb	get_obj_color(t_obj *obj)
+{
+	if (obj->id == plane)
+		return (obj->object.plane.color);
+	if (obj->id == sphere)
+		return (obj->object.sphere.color);
+	if (obj->id == cylinder)
+		return (obj->object.cylinder.color);
+	return (get_color(0, 0, 0));
 }

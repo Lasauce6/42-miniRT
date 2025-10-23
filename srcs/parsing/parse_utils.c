@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:30:54 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/17 10:24:02 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/17 15:48:21 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ int	parse_vector(char *str, t_vec *vec)
 	if (split == NULL)
 		return (1);
 	while (split && split[++i])
-		if (!ft_isfloat(split[i]))
+		if (!is_double(split[i]))
 			return (ft_free_split(split), 1);
 	if (ft_tablen(split) != 3)
 		return (ft_free_split(split), 1);
 	else
 	{
-		vec->x = ft_atofloat(split[0]);
-		vec->y = ft_atofloat(split[1]);
-		vec->z = ft_atofloat(split[2]);
+		vec->x = ft_atod(split[0]);
+		vec->y = ft_atod(split[1]);
+		vec->z = ft_atod(split[2]);
 	}
 	ft_free_split(split);
 	return (0);
 }
 
-int	parse_color(char *str, int *color)
+int	parse_color(char *str, t_rgb *color)
 {
 	int		i;
 	char	**split;
@@ -60,11 +60,11 @@ int	parse_color(char *str, int *color)
 	return (0);
 }
 
-int	parse_float(char *str, float *fl)
+int	parse_double(char *str, double *d)
 {
-	if (!is_float(str))
+	if (!is_double(str))
 		return (1);
-	*fl = ft_atofloat(str);
+	*d = ft_atod(str);
 	return (0);
 }
 

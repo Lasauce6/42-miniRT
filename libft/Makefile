@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/24 09:46:20 by rbaticle          #+#    #+#              #
-#    Updated: 2025/09/19 15:55:09 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/10/16 18:54:39 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,22 +25,28 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 	   ft_strcmp.c ft_strndup.c ft_isspace.c ft_atoi_base.c \
 	   ft_tablen.c ft_atof.c ft_atofloat.c ft_free_split.c \
 	   ft_isfloat.c ft_split_max.c
-OBJS = $(SRCS:.c=.o)
+
+OBJ_DIR = ./objs/
+OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 		ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 		ft_lstclear.c ft_lstiter.c ft_lstmap.c
-OBJS_BONUS = $(BONUS:.c=.o)
+OBJS_BONUS = $(addprefix $(OBJ_DIR), $(BONUS:.c=.o))
 
 GNL = get_next_line.c
-GNL_OBJS = $(GNL:.c=.o)
+GNL_OBJS = $(addprefix $(OBJ_DIR), $(GNL:.c=.o))
 
 PRINTF = ft_printf.c ft_printf_utils/ftf_putchar_fd.c \
 		 ft_printf_utils/ftf_putnbr_fd.c \
 		 ft_printf_utils/ftf_putstr_fd.c
-PRINTF_OBJS = $(PRINTF:.c=.o)
+PRINTF_OBJS = $(addprefix $(OBJ_DIR), $(PRINTF:.c=.o))
 
 all: $(NAME)
+
+$(OBJ_DIR)%.o: %.c $(HEADERS)
+	@mkdir -p $(dir $@)
+	$(CC) -c $< $(CFLAGS) -o $@
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
