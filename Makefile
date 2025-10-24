@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:42:24 by rbaticle          #+#    #+#              #
-#    Updated: 2025/10/16 17:33:47 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/10/24 11:33:00 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,17 +47,17 @@ INCLUDES = ./includes/
 HEADER_FILES = miniRT.h
 HEADERS = $(addprefix $(INCLUDES), $(HEADER_FILES))
 
-CFLAGS += -L $(MLX_DIR) -lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-CFLAGS += -L $(LIBFT_DIR) -lft
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -Imlx_linux -L/usr/lib -lXext -lX11 -lm -lz
+LFT_FLAGS = -L$(LIBFT_DIR) -lft
 
 all: $(NAME)
 
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
-	$(CC) -I $(INCLUDES) $(OBJS) $(CFLAGS) -o $(NAME)
+	$(CC) -I $(INCLUDES) $(OBJS) $(CFLAGS) $(MLX_FLAGS) $(LFT_FLAGS) -o $(NAME)
 
 $(OBJ_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
 	@mkdir -p $(dir $@)
-	$(CC) -I $(INCLUDES) -c $< $(CFLAGS) -o $@
+	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 
 fsan: $(LIBFT_LIB) $(MLX_LIB) $(HEADERS)
 	$(CC) -I $(INCLUDES) $(SRCS) $(CFLAGS) -fsanitize=address -g3 -o $(NAME)
