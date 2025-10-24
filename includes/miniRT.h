@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jili <jili@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/21 13:05:50 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:04:56 by jili             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@
 # define BODY 0
 # define BOT 1
 # define TOP 2
+
+
+// ## error and free
+
+# define STR_PROG_NAME "miniRT:"
+# define STR_USAGE "%s usage: <file.rt>.\n "
+# define STR_ERR_INPUT "%s invalid input: %s : not a valid file.rt.\n"
+# define STR_ERR_MALLOC "%s error : Could not allocate memory.\n"
+# define STR_ERR_MLX "%s mlx failed.\n"
+
 
 typedef struct s_vec
 {
@@ -89,7 +99,7 @@ typedef struct s_camera
 	t_vec		px00_loc;
 }	t_camera;
 
-typedef struct s_light
+typedef struct s_light//free
 {
 	t_vec			coords;
 	double			ratio;
@@ -135,7 +145,7 @@ typedef union u_obj
 	t_cylinder	cylinder;
 }	t_obj_union;
 
-typedef struct s_obj
+typedef struct s_obj//free
 {
 	t_obj_id		id;
 	t_obj_union		object;
