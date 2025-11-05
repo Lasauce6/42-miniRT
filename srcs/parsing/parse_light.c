@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:49:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/21 12:06:33 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/05 11:34:05 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	parse_ambient_light(char **tokens, t_data *data)
 		return (1); // TODO: error message
 	if (parse_color(tokens[2], &l.color))
 		return (1); // TODO: error message
-	if (parse_double(tokens[1], &l.ratio))
+	if (parse_double(tokens[1], &l.ratio, RATIO))
 		return (1); // TODO: error message
 	l.id = ambient_light;
 	data->ambient = l;
@@ -39,9 +39,9 @@ int	parse_light(char **tokens, t_data *data)
 	l->next = NULL;
 	if (ft_tablen(tokens) != 4)
 		return (free(l), 1); // TODO: error message
-	if (parse_vector(tokens[1], &l->coords))
+	if (parse_vector(tokens[1], &l->coords, VECTOR))
 		return (free(l), 1); // TODO: error message
-	if (parse_double(tokens[2], &l->ratio))
+	if (parse_double(tokens[2], &l->ratio, RATIO))
 		return (free(l), 1); // TODO: error message
 	if (parse_color(tokens[3], &l->color))
 		return (free(l), 1); // TODO: error message
@@ -105,11 +105,11 @@ int	parse_camera(char **tokens, t_data *data)
 	if (ft_tablen(tokens) != 4)
 		return (1); // TODO: error message
 	c.id = camera;
-	if (parse_vector(tokens[1], &c.coords))
+	if (parse_vector(tokens[1], &c.coords, VECTOR))
 		return (1); // TODO: error message
-	if (parse_vector(tokens[2], &c.orient))
+	if (parse_vector(tokens[2], &c.orient, NORMAL))
 		return (1);
-	if (parse_ulong(tokens[3], &c.fov))
+	if (parse_ulong(tokens[3], &c.fov, FOV))
 		return (1); // TODO: error message
 	calculate_viewport(&c);
 	data->camera = c;
