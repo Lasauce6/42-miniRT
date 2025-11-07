@@ -1,0 +1,13 @@
+A 0.2 255,255,255
+
+# Camera placed aside to see sphere + shadow clearly
+C -20,10,-30 0.6,-0.2,0.7 70
+
+# Vertical light above sphere to cast shadow on plane
+L 0,20,0 0.8 255,255,255
+
+# Sphere above the plane
+sp 0,0,0 5 255,0,0
+
+# Plane under the sphere
+pl 0,-5,0 0,1,0 150,150,150

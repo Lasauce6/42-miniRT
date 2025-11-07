@@ -1,0 +1,13 @@
+A 0.2 255,255,255
+
+# Camera facing the translated sphere
+C 0,0,-30 0,0,1 70
+
+# Light on the right side of camera
+L 20,0,-20 0.8 255,255,255
+
+# Sphere translated to the right (x = 15)
+sp 15,0,0 10 255,0,0
+
+# Ground plane for visual reference
+pl 0,-10,0 0,1,0 150,150,150

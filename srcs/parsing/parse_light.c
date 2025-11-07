@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:49:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/07 12:42:55 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:49:13 by jili             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	calculate_viewport(t_camera *cam)
 {
 	t_vec	axis[3];
 
-	cam->focal_len = 1.0;// WHY : La distance focale par défaut est-elle de 1.0 ?
+	cam->focal_len = 1.0;
 	cam->vp_w = 2.0 * tan(deg2rad(cam->fov) / 2);
 	cam->vp_h = cam->vp_w * ((double) HEIGHT / (double) WIDTH);
 	cam->center = cam->coords;
