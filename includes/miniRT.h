@@ -41,9 +41,17 @@
 
 // ## error and free
 
-# define STR_PROG_NAME "miniRT:"
+# define STR_PROG_NAME "miniRT"
 # define STR_USAGE "%s usage: <file.rt>.\n "
-# define STR_ERR_INPUT "%s invalid input: %s : not a valid file.rt.\n"
+# define STR_OPEN "%s invalid input : %s open failed. \n"
+# define STR_ERR_INPUT "%s is not a valid file.rt.\n"
+# define STR_ERR_FILE_INFO "%s invalid input: The information about one element is incorrect.\n"
+# define STR_ERR_PARSER_VECTOR "%s invalid input: Could not parser the vector %s.\n"
+# define STR_ERR_PARSER_DOUBLE "%s invalid input: Could not parser the double %s.\n"
+# define STR_ERR_PARSER_ULONG "%s invalid input: Could not parser the unsigned long %s.\n "
+# define STR_ERR_PARSER_COLOR "%s invalid input: Could not parser the color %s.\n"
+# define STR_ERR_MISSING_ELE "%s invalid input: Missing one element.\n"
+# define STR_ERR_DUP "%s invalid input: Element duplication.\n"
 # define STR_ERR_MALLOC "%s error : Could not allocate memory.\n"
 # define STR_ERR_MLX "%s mlx failed.\n"
 
@@ -200,6 +208,17 @@ typedef struct s_data
 // main.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
+//mlx_utils.c
+int		close_window(t_data *data);
+int		key_hook(int keycode, t_data *data);
+
+// exit.c
+int		error_failure(char *format, char *detail);
+int		error_failure_free_obj(char *format, char *detail, t_obj *obj);
+int 	error_failure_free_light(char *format, char *detail, t_light *light);
+void	*free_table(t_data *data);
+int		message_error(char *format, char *detail, int exit_no);
+
 // ## Parsing ##
 // parsing.c
 int		parse_file(char *filename, t_data *data);
@@ -263,5 +282,6 @@ t_rgb	get_obj_color(t_obj *obj);
 // ray_utils.c
 t_vec	ray_at(t_ray ray, double t);
 t_ray	new_ray(t_vec origin, t_vec dir);
+
 
 #endif

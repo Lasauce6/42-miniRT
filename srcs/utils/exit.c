@@ -9,30 +9,46 @@ int message_error(char *format, char *detail, int exit_no)
 	return (exit_no);
 }
 
-void	*free_light(t_light *light)
+static void	free_lights(t_light **lights)
 {
+	t_light *tmp;
+	t_light *l;
 
+	l = *lights;
+	while (l)
+	{
+		tmp = l;
+		l = l->next;
+		free(tmp);
+	}
+	*lights = 0;
 }
 
-void	*error_null(char *format, char *detail)
+int	error_failure(char *format, char *detail)
 {
-	message_error(format, detail, EXIT_FAILURE);
+	exit(message_error(format, detail, EXIT_FAILURE));
+}
+
+int	error_failure_free_obj(char *format, char *detail, t_obj *obj)
+{
+	free(obj);
+	exit(error_failure(format, detail));
+}
+
+int error_failure_free_light(char *format, char *detail, t_light *light)
+{
+	free(light);
+	exit(error_failure(format, detail));
+}
+
+
+void	*free_table(t_data *data)
+{
+	if (!data)
+		return (NULL);
+	if (data->light)
+		free_lights(&(data->light));
+	if (data->objs)
+		free_objects(&(data->objs));
 	return (NULL);
-}
-
-int	*error_failure(char *format, char *detail)
-{
-	return (message_error(format, detail, EXIT_FAILURE));
-}
-
-int	close_window(t_data *data)
-{
-	if (data->img)
-		mlx_destory_image(data->mlx_ptr, data->img);
-    if (data->win)
-		mlx_destory_window(data->mlx_ptr, data->win);
-	if (data->mlx_ptr)
-		mlx_destroy_display(data->mlx_ptr);
-	exit(0);
-	return (0);
 }

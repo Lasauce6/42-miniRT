@@ -69,6 +69,7 @@ int main(int argc, char **argv)
 	cast_rays(&data);
 	mlx_put_image_to_window(data.mlx_ptr, data.win, data.img, 0, 0);
 	mlx_hook(data.win, 17, 0, close_window, &data);
-	mlx_key_hook(data.win, close_window, &data);
-	mlx_loop(data.mlx_ptr); // TODO: close with cross and escape and free all heap
+	mlx_key_hook(data.win, key_hook, &data);
+	mlx_loop(data.mlx_ptr); // DONE: close with cross and escape and free all heap
+	return (0);
 }
