@@ -6,79 +6,86 @@
 /*   By: jili <jili@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 15:54:31 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/07 11:54:43 by jili             ###   ########.fr       */
+/*   Updated: 2025/11/07 13:03:55 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	if_sep(char s, char *c)
+int	in_str(char *str, char c)
 {
-	size_t	i;
+	int	i;
 
 	i = -1;
-	while (i++, i < 6)
+	while (str[++i])
 	{
-		if (s == c[i])
+		if (str[i] == c)
 			return (1);
 	}
 	return (0);
 }
 
-static char	**count_word(char const *s, char *c)
+int	get_words(char *str, char *charset)
 {
-	size_t	i;
-	size_t	count_w;
-	char	**tab;
+	int	i;
+	int	c;
 
-	count_w = 0;
 	i = 0;
-	while (s[i])
+	c = 0;
+	while (str[i])
 	{
-		if (i == 0 && if_sep(s[i], c) == 0)
-			count_w++;
-		if (if_sep(s[i], c) && if_sep(s[i + 1], c) == 0 && s[i + 1] != '\0')
-			count_w++;
-		i++;
+		while (in_str(charset, str[i]))
+			i++;
+		if (!in_str(charset, str[i]))
+		{
+			c++;
+			while (!in_str(charset, str[i]) && str[i])
+				i++;
+		}
 	}
-	tab = malloc(sizeof(char *) * (count_w + 1));
-	if (!tab)
-		return (NULL);
-	return (tab);
+	return (c);
 }
 
-static char	**ft_free2(char **tab, size_t i)
+int	len_word_charset(char *str, char *charset, int pos)
 {
-	while (i > 0)
-		free(tab[--i]);
-	free(tab);
-	return (NULL);
+	int	i;
+
+	i = 0;
+	if (in_str(charset, str[pos]))
+	{
+		while (in_str(charset, str[pos++]))
+			i++;
+	}
+	else
+	{
+		while (!in_str(charset, str[pos]) && str[pos++])
+			i++;
+	}
+	return (i);
 }
 
-char	**ft_split_max(char const *s, char *c)
+char	**ft_split_max(char *str, char *charset)
 {
-	char	**tab;
-	size_t	i;
-	size_t	start;
-	size_t	count_w;
+	char	**res;
+	int		i;
+	int		j;
 
-	tab = count_word(s, c);
-	if (!tab)
-		return (NULL);
+	res = malloc(sizeof(char *) * (get_words(str, charset) + 1));
+	if (!res)
+		return (0);
 	i = 0;
-	count_w = 0;
-	while (s[i])
+	j = 0;
+	while (str[i])
 	{
-		while (s[i] && if_sep(s[i], c))
-			i++;
-		start = i;
-		while (s[i] && if_sep(s[i], c) == 0)
-			i++;
-		if (start < i)
-			tab[count_w] = ft_substr(s, start, i - start);
-		if (start < i && !tab[count_w++])
-			return (ft_free2(tab, count_w - 1));
+		if (in_str(charset, str[i]))
+			i += len_word_charset(str, charset, i);
+		else
+		{
+			res[j] = ft_strndup(&str[i], len_word_charset(str, charset, i));
+			i += len_word_charset(str, charset, i);
+			j++;
+		}
 	}
-	tab[count_w] = NULL;
-	return (tab);
+	res[j] = 0;
+	return (res);
 }

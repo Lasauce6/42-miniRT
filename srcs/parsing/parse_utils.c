@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:30:54 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/05 11:40:06 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:35:45 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	parse_double(char *str, double *d, t_type type)
 	return (verify_type(d, type));
 }
 
-int	parse_ulong(char *str, size_t *n, t_type type)
+int	parse_size_t(char *str, size_t *n, t_type type)
 {
 	if (!is_ulong(str))
 		return (1);

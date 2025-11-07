@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:49:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/05 11:34:05 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:42:55 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,13 @@ int	parse_ambient_light(char **tokens, t_data *data)
 	t_ambient_light	l;
 
 	if (ft_tablen(tokens) != 3)
-		//return (1); // DONE: error message
-		return(error_failure(STR_ERR_FILE_INFO, NULL));
+		return (message_error(STR_ERR_FILE_INFO, NULL, 1));
 	if (data->ambient.id == ambient_light)
-		//return (1); // DONE: error message
-		return(error_failure(STR_ERR_DUP, NULL));
+		return (message_error(STR_ERR_DUP, NULL, 1));
 	if (parse_color(tokens[2], &l.color))
-		//return (1); // DONE: error message
-		return(error_failure(STR_ERR_PARSER_COLOR, tokens[2]));
+		return (message_error(STR_ERR_PARSER_COLOR, tokens[2], 1));
 	if (parse_double(tokens[1], &l.ratio, RATIO))
-		//return (1); // DONE: error message
-		return(error_failure(STR_ERR_PARSER_DOUBLE, tokens[1]));
+		return (message_error(STR_ERR_PARSER_DOUBLE, tokens[1], 1));
 	l.id = ambient_light;
 	data->ambient = l;
 	return (0);
@@ -39,21 +35,16 @@ int	parse_light(char **tokens, t_data *data)
 
 	l = malloc(sizeof(t_light));
 	if (l == NULL)
-		//return (1); // DONE: error message
-		error_failure(STR_ERR_MALLOC, NULL);
+		return (message_error(STR_ERR_MALLOC, NULL, 1));
 	l->next = NULL;
 	if (ft_tablen(tokens) != 4)
-		error_failure_free_light(STR_ERR_FILE_INFO, NULL, l);
-		//return (free(l), 1); // DONE: error message 
+		return (free(l), message_error(STR_ERR_FILE_INFO, NULL, 1));
 	if (parse_vector(tokens[1], &l->coords, VECTOR))
-		//return (free(l), 1); // DONE: error message
-		error_failure_free_light(STR_ERR_PARSER_VECTOR, tokens[1], l);
+		return (free(l), message_error(STR_ERR_PARSER_VECTOR, tokens[1], 1));
 	if (parse_double(tokens[2], &l->ratio, RATIO))
-		//return (free(l), 1); // DONE: error message
-		error_failure_free_light(STR_ERR_PARSER_DOUBLE, tokens[2], l);
+		return (free(l), message_error(STR_ERR_PARSER_DOUBLE, tokens[2], 1));
 	if (parse_color(tokens[3], &l->color))
-		//return (free(l), 1); // DONE: error message
-		error_failure_free_light(STR_ERR_PARSER_COLOR, tokens[3], l);
+		return (free(l), message_error(STR_ERR_PARSER_COLOR, tokens[3], 1));
 	if (data->light == NULL)
 		data->light = l;
 	else
@@ -110,21 +101,16 @@ int	parse_camera(char **tokens, t_data *data)
 	t_camera	c;
 
 	if (data->camera.id == camera)
-		//return (1); // DONE: error message
-		error_failure(STR_ERR_DUP, NULL);
+		return (message_error(STR_ERR_DUP, NULL, 1));
 	if (ft_tablen(tokens) != 4)
-		//return (1); // DONE: error message
-		error_failure(STR_ERR_FILE_INFO, NULL);
+		message_error(STR_ERR_FILE_INFO, NULL, 1);
 	c.id = camera;
 	if (parse_vector(tokens[1], &c.coords, VECTOR))
-		//return (1); // DONE: error message
-		error_failure(STR_ERR_PARSER_VECTOR, tokens[1]);
+		return (message_error(STR_ERR_PARSER_VECTOR, tokens[1], 1));
 	if (parse_vector(tokens[2], &c.orient, NORMAL))
-		//return (1);
-		error_failure(STR_ERR_PARSER_VECTOR, tokens[2]);
-	if (parse_ulong(tokens[3], &c.fov, FOV))//WHY : unsigned long? why not int?
-		//return (1); // DONE: error message
-		error_failure(STR_ERR_PARSER_ULONG, tokens[3]);
+		return (message_error(STR_ERR_PARSER_VECTOR, tokens[2], 1));
+	if (parse_size_t(tokens[3], &c.fov, FOV))
+		return (message_error(STR_ERR_PARSER_ULONG, tokens[3], 1));
 	calculate_viewport(&c);
 	data->camera = c;
 	return (0);

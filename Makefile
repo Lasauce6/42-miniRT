@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:42:24 by rbaticle          #+#    #+#              #
-#    Updated: 2025/10/24 11:33:00 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/11/07 12:34:45 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS_NAMES = main.c \
 			 utils/vector3.c \
 			 utils/mlx_utils.c \
 			 utils/exit.c \
+			 utils/free.c \
 			 rt/ray.c \
 			 rt/hit.c \
 			 rt/hit_cylinder.c \
@@ -62,10 +63,10 @@ $(OBJ_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 
 fsan: $(LIBFT_LIB) $(MLX_LIB) $(HEADERS)
-	$(CC) -I $(INCLUDES) $(SRCS) $(CFLAGS) -fsanitize=address -g3 -o $(NAME)
+	$(CC) -I $(INCLUDES) $(SRCS) $(CFLAGS) $(MLX_FLAGS) $(LFT_FLAGS) -fsanitize=address -g3 -o $(NAME)
 
 debug: $(LIBFT_LIB) $(MLX_LIB) $(HEADERS)
-	$(CC) -I $(INCLUDES) $(SRCS) $(CFLAGS) -g3 -o $(NAME)
+	$(CC) -I $(INCLUDES) $(SRCS) $(CFLAGS) $(MLX_FLAGS) $(LFT_FLAGS) -g3 -o $(NAME)
 
 $(LIBFT_LIB):
 	@make -C $(LIBFT_DIR) gnl
@@ -82,6 +83,7 @@ fclean: clean
 	@make -C $(MLX_DIR) clean
 	rm -fr $(NAME)
 
-re: fclean all
+re: fclean
+	@make all --no-print-directory
 
 .PHONY: all clean fclean re

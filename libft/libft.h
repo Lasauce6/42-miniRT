@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:54:13 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/19 15:55:00 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:57:02 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ double	ft_atof(char *str);
 float	ft_atofloat(char *str);
 void	ft_free_split(char **split);
 int		ft_isfloat(char *str);
-char	**ft_split_max(char const *s, char *c);
+char	**ft_split_max(char *str, char *charset);
 
 #endif

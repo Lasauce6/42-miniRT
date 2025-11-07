@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 12:37:03 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/16 15:33:35 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/07 13:20:36 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	push_object(t_obj *obj, t_obj **objs)
 	}
 }
 
-t_obj	*create_object(t_data *data, t_obj_id id)//WHY : malloc
+t_obj	*create_object(t_data *data, t_obj_id id)
 {
 	t_obj	*obj;
 

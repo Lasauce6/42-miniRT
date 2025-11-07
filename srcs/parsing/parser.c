@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:47:32 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/09/19 18:44:33 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/07 13:30:19 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ static int	identify(char **tokens, t_data *data)
 		return (parse_plane(tokens, data));
 	if (!ft_strcmp(tokens[0], "cy"))
 		return (parse_cylinder(tokens, data));
-	return (1);
-	//return(error_failure(STR_ERR_PARSER_ELE, NULL));
+	return (message_error(STR_ERR_INPUT, NULL, 1));
 }
 
-static int	check_line(char *line, t_data *data)
+static int	check_line(char *line, t_data *data, int file)
 {
 	char	**tokens;
 
@@ -40,13 +39,19 @@ static int	check_line(char *line, t_data *data)
 	if (tokens == NULL)
 		return (1);
 	if (ft_tablen(tokens) == 0)
-		return (0);
+		return (ft_free_split(tokens), 0);
 	if (identify(tokens, data))
 	{
-		ft_free_split(tokens);//WHY
-		return(error_failure(STR_ERR_INPUT,NULL));
+		ft_free_split(tokens);
+		while (line)
+		{
+			free(line);
+			line = get_next_line(file);
+		}
+		close(file);
+		free_table(data);
+		exit(1);
 	}
-		//return (free(tokens), 1);
 	ft_free_split(tokens);
 	return (0);
 }
@@ -54,14 +59,11 @@ static int	check_line(char *line, t_data *data)
 int	is_invalid_file(t_data *data)
 {
 	if (data->ambient.id == null)
-		//return (1); // DONE: error message
-		error_failure(STR_ERR_MISSING_ELE, NULL);
+		return (message_error(STR_ERR_MISSING_ELE, NULL, 1));
 	if (data->camera.id == null)
-		//return (1); // DONE: error message
-		error_failure(STR_ERR_MISSING_ELE, NULL);
+		return (message_error(STR_ERR_MISSING_ELE, NULL, 1));
 	if (!data->light)
-		//return (1); // DONE: error message
-		error_failure(STR_ERR_MISSING_ELE, NULL);
+		return (message_error(STR_ERR_MISSING_ELE, NULL, 1));
 	return (0);
 }
 
@@ -71,13 +73,13 @@ static int	is_file_rt(char *filename)
 
 	len = ft_strlen(filename);
 	if (len < 3)
-		return (0);
+		return (1);
 	if (filename[len - 3] == '.' && \
 		filename[len - 2] == 'r' && \
 		filename[len - 1] == 't')
 		return (1);
 	else
-		return(0);
+		return (0);
 }
 
 int	parse_file(char *filename, t_data *data)
@@ -86,24 +88,23 @@ int	parse_file(char *filename, t_data *data)
 	char	*line;
 
 	if (!is_file_rt(filename))
-		error_failure(STR_USAGE, NULL);
+		return (message_error(STR_USAGE, NULL, 1));
 	file = open(filename, O_RDONLY);
 	if (file == -1)
-		//return (1); // DONE: error message
-		error_failure(STR_OPEN, filename);
+		return (message_error(STR_OPEN, filename, 1));
 	line = get_next_line(file);
 	if (line)
-		check_line(line, data);
+		check_line(line, data, file);
 	while (line)
 	{
 		free(line);
 		line = get_next_line(file);
 		if (line)
 		{
-			if (check_line(line, data))
+			if (check_line(line, data, file))
 				return (free(line), 1);
 		}
 	}
-	close(file);// ADD
+	close(file);
 	return (is_invalid_file(data));
 }

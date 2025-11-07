@@ -6,7 +6,7 @@
 /*   By: jili <jili@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/24 16:04:56 by jili             ###   ########.fr       */
+/*   Updated: 2025/11/07 13:30:55 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,26 @@ typedef enum e_type
 # define BOT 1
 # define TOP 2
 
-
 // ## error and free
 
 # define STR_PROG_NAME "miniRT"
 # define STR_USAGE "%s usage: <file.rt>.\n "
 # define STR_OPEN "%s invalid input : %s open failed. \n"
 # define STR_ERR_INPUT "%s is not a valid file.rt.\n"
-# define STR_ERR_FILE_INFO "%s invalid input: The information about one element is incorrect.\n"
-# define STR_ERR_PARSER_VECTOR "%s invalid input: Could not parser the vector %s.\n"
-# define STR_ERR_PARSER_DOUBLE "%s invalid input: Could not parser the double %s.\n"
-# define STR_ERR_PARSER_ULONG "%s invalid input: Could not parser the unsigned long %s.\n "
-# define STR_ERR_PARSER_COLOR "%s invalid input: Could not parser the color %s.\n"
+# define STR_ERR_FILE_INFO "%s invalid input: \
+	The information about one element is incorrect.\n"
+# define STR_ERR_PARSER_VECTOR "%s invalid input: \
+	Could not parse the vector %s.\n"
+# define STR_ERR_PARSER_DOUBLE "%s invalid input: \
+	Could not parse the double %s.\n"
+# define STR_ERR_PARSER_ULONG "%s invalid input: \
+	Could not parse the unsigned long %s.\n "
+# define STR_ERR_PARSER_COLOR "%s invalid input: \
+	Could not parse the color %s.\n"
 # define STR_ERR_MISSING_ELE "%s invalid input: Missing one element.\n"
 # define STR_ERR_DUP "%s invalid input: Element duplication.\n"
 # define STR_ERR_MALLOC "%s error : Could not allocate memory.\n"
 # define STR_ERR_MLX "%s mlx failed.\n"
-
 
 typedef struct s_vec
 {
@@ -222,9 +225,7 @@ int		close_window(t_data *data);
 int		key_hook(int keycode, t_data *data);
 
 // exit.c
-int		error_failure(char *format, char *detail);
-int		error_failure_free_obj(char *format, char *detail, t_obj *obj);
-int 	error_failure_free_light(char *format, char *detail, t_light *light);
+int		error_failure(char *format, char *detail, t_data *data);
 void	*free_table(t_data *data);
 int		message_error(char *format, char *detail, int exit_no);
 
@@ -243,7 +244,7 @@ int		parse_cylinder(char **tokens, t_data *data);
 int		parse_vector(char *str, t_vec *vec, t_type type);
 int		parse_color(char *str, t_rgb *color);
 int		parse_double(char *str, double *d, t_type type);
-int		parse_ulong(char *str, size_t *n, t_type type);
+int		parse_size_t(char *str, size_t *n, t_type type);
 
 // ## RT ##
 // ray.c
@@ -291,6 +292,5 @@ t_rgb	get_obj_color(t_obj *obj);
 // ray_utils.c
 t_vec	ray_at(t_ray ray, double t);
 t_ray	new_ray(t_vec origin, t_vec dir);
-
 
 #endif

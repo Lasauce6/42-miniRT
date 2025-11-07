@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/07 12:31:27 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/07 13:31:14 by rbaticle         ###   ########.fr       */
+/*   Created: 2025/11/07 12:33:07 by rbaticle          #+#    #+#             */
+/*   Updated: 2025/11/07 12:33:36 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-int	message_error(char *format, char *detail, int exit_no)
+static void	free_lights(t_light **lights)
 {
-	if (!detail)
-		printf(format, STR_PROG_NAME);
-	else
-		printf(format, STR_PROG_NAME, detail);
-	return (exit_no);
+	t_light	*tmp;
+	t_light	*l;
+
+	l = *lights;
+	while (l)
+	{
+		tmp = l;
+		l = l->next;
+		free(tmp);
+	}
+	*lights = 0;
 }
 
-int	error_failure(char *format, char *detail, t_data *data)
+void	*free_table(t_data *data)
 {
-	free_table(data);
-	exit(message_error(format, detail, EXIT_FAILURE));
+	if (!data)
+		return (NULL);
+	if (data->light)
+		free_lights(&(data->light));
+	if (data->objs)
+		free_objects(&(data->objs));
+	return (NULL);
 }
