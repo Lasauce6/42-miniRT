@@ -26,6 +26,7 @@ static void	free_lights(t_light **lights)
 
 int	error_failure(char *format, char *detail)
 {
+	
 	exit(message_error(format, detail, EXIT_FAILURE));
 }
 
