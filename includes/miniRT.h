@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jili <jili@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/05 11:33:46 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:04:56 by jili             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,24 @@ typedef enum e_type
 # define BODY 0
 # define BOT 1
 # define TOP 2
+
+
+// ## error and free
+
+# define STR_PROG_NAME "miniRT"
+# define STR_USAGE "%s usage: <file.rt>.\n "
+# define STR_OPEN "%s invalid input : %s open failed. \n"
+# define STR_ERR_INPUT "%s is not a valid file.rt.\n"
+# define STR_ERR_FILE_INFO "%s invalid input: The information about one element is incorrect.\n"
+# define STR_ERR_PARSER_VECTOR "%s invalid input: Could not parser the vector %s.\n"
+# define STR_ERR_PARSER_DOUBLE "%s invalid input: Could not parser the double %s.\n"
+# define STR_ERR_PARSER_ULONG "%s invalid input: Could not parser the unsigned long %s.\n "
+# define STR_ERR_PARSER_COLOR "%s invalid input: Could not parser the color %s.\n"
+# define STR_ERR_MISSING_ELE "%s invalid input: Missing one element.\n"
+# define STR_ERR_DUP "%s invalid input: Element duplication.\n"
+# define STR_ERR_MALLOC "%s error : Could not allocate memory.\n"
+# define STR_ERR_MLX "%s mlx failed.\n"
+
 
 typedef struct s_vec
 {
@@ -98,7 +116,7 @@ typedef struct s_camera
 	t_vec		px00_loc;
 }	t_camera;
 
-typedef struct s_light
+typedef struct s_light//free
 {
 	t_vec			coords;
 	double			ratio;
@@ -144,7 +162,7 @@ typedef union u_obj
 	t_cylinder	cylinder;
 }	t_obj_union;
 
-typedef struct s_obj
+typedef struct s_obj//free
 {
 	t_obj_id		id;
 	t_obj_union		object;
@@ -198,6 +216,17 @@ typedef struct s_data
 
 // main.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+//mlx_utils.c
+int		close_window(t_data *data);
+int		key_hook(int keycode, t_data *data);
+
+// exit.c
+int		error_failure(char *format, char *detail);
+int		error_failure_free_obj(char *format, char *detail, t_obj *obj);
+int 	error_failure_free_light(char *format, char *detail, t_light *light);
+void	*free_table(t_data *data);
+int		message_error(char *format, char *detail, int exit_no);
 
 // ## Parsing ##
 // parsing.c
@@ -262,5 +291,6 @@ t_rgb	get_obj_color(t_obj *obj);
 // ray_utils.c
 t_vec	ray_at(t_ray ray, double t);
 t_ray	new_ray(t_vec origin, t_vec dir);
+
 
 #endif

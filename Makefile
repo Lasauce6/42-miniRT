@@ -27,6 +27,8 @@ SRCS_NAMES = main.c \
 			 utils/vector.c \
 			 utils/vector2.c \
 			 utils/vector3.c \
+			 utils/mlx_utils.c \
+			 utils/exit.c \
 			 rt/ray.c \
 			 rt/hit.c \
 			 rt/hit_cylinder.c \

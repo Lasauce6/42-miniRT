@@ -27,7 +27,7 @@ void	push_object(t_obj *obj, t_obj **objs)
 	}
 }
 
-t_obj	*create_object(t_data *data, t_obj_id id)
+t_obj	*create_object(t_data *data, t_obj_id id)//WHY : malloc
 {
 	t_obj	*obj;
 
