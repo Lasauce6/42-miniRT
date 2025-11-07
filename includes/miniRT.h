@@ -30,6 +30,15 @@
 # define MIN 1
 # define MAX 2
 
+typedef enum e_type
+{
+	RATIO,
+	VECTOR,
+	NORMAL,
+	FOV,
+	SIZE
+}	t_type;
+
 // ## Nb samples for supersampling ##
 # define SAMPLES 1
 
@@ -231,10 +240,10 @@ int		parse_sphere(char **tokens, t_data *data);
 int		parse_plane(char **tokens, t_data *data);
 int		parse_cylinder(char **tokens, t_data *data);
 // parse_utils.c
-int		parse_vector(char *str, t_vec *vec);
+int		parse_vector(char *str, t_vec *vec, t_type type);
 int		parse_color(char *str, t_rgb *color);
-int		parse_double(char *str, double *d);
-int		parse_ulong(char *str, size_t *n);
+int		parse_double(char *str, double *d, t_type type);
+int		parse_ulong(char *str, size_t *n, t_type type);
 
 // ## RT ##
 // ray.c

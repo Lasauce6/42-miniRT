@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:49:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/21 12:06:33 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/05 11:34:05 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	parse_ambient_light(char **tokens, t_data *data)
 	if (parse_color(tokens[2], &l.color))
 		//return (1); // DONE: error message
 		return(error_failure(STR_ERR_PARSER_COLOR, tokens[2]));
-	if (parse_double(tokens[1], &l.ratio))
+	if (parse_double(tokens[1], &l.ratio, RATIO))
 		//return (1); // DONE: error message
 		return(error_failure(STR_ERR_PARSER_DOUBLE, tokens[1]));
 	l.id = ambient_light;
@@ -45,10 +45,10 @@ int	parse_light(char **tokens, t_data *data)
 	if (ft_tablen(tokens) != 4)
 		error_failure_free_light(STR_ERR_FILE_INFO, NULL, l);
 		//return (free(l), 1); // DONE: error message 
-	if (parse_vector(tokens[1], &l->coords))
+	if (parse_vector(tokens[1], &l->coords, VECTOR))
 		//return (free(l), 1); // DONE: error message
 		error_failure_free_light(STR_ERR_PARSER_VECTOR, tokens[1], l);
-	if (parse_double(tokens[2], &l->ratio))
+	if (parse_double(tokens[2], &l->ratio, RATIO))
 		//return (free(l), 1); // DONE: error message
 		error_failure_free_light(STR_ERR_PARSER_DOUBLE, tokens[2], l);
 	if (parse_color(tokens[3], &l->color))
@@ -116,13 +116,13 @@ int	parse_camera(char **tokens, t_data *data)
 		//return (1); // DONE: error message
 		error_failure(STR_ERR_FILE_INFO, NULL);
 	c.id = camera;
-	if (parse_vector(tokens[1], &c.coords))
+	if (parse_vector(tokens[1], &c.coords, VECTOR))
 		//return (1); // DONE: error message
 		error_failure(STR_ERR_PARSER_VECTOR, tokens[1]);
-	if (parse_vector(tokens[2], &c.orient))
+	if (parse_vector(tokens[2], &c.orient, NORMAL))
 		//return (1);
 		error_failure(STR_ERR_PARSER_VECTOR, tokens[2]);
-	if (parse_ulong(tokens[3], &c.fov))//WHY : unsigned long? why not int?
+	if (parse_ulong(tokens[3], &c.fov, FOV))//WHY : unsigned long? why not int?
 		//return (1); // DONE: error message
 		error_failure(STR_ERR_PARSER_ULONG, tokens[3]);
 	calculate_viewport(&c);
