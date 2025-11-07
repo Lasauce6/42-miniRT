@@ -6,7 +6,7 @@
 /*   By: jili <jili@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/07 13:30:55 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:22:41 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,23 @@ typedef enum e_type
 // ## error and free
 
 # define STR_PROG_NAME "miniRT"
-# define STR_USAGE "%s usage: <file.rt>.\n "
-# define STR_OPEN "%s invalid input : %s open failed. \n"
-# define STR_ERR_INPUT "%s is not a valid file.rt.\n"
+# define STR_USAGE "%s usage: ./miniRT <file.rt>\n"
+# define STR_OPEN "%s invalid input : %s open failed \n"
+# define STR_ERR_INPUT "%s is not a valid file.rt\n"
 # define STR_ERR_FILE_INFO "%s invalid input: \
-	The information about one element is incorrect.\n"
+	The information about one element is incorrect\n"
 # define STR_ERR_PARSER_VECTOR "%s invalid input: \
-	Could not parse the vector %s.\n"
+	Could not parse the vector %s\n"
 # define STR_ERR_PARSER_DOUBLE "%s invalid input: \
-	Could not parse the double %s.\n"
+	Could not parse the double %s\n"
 # define STR_ERR_PARSER_ULONG "%s invalid input: \
-	Could not parse the unsigned long %s.\n "
+	Could not parse the unsigned long %s\n "
 # define STR_ERR_PARSER_COLOR "%s invalid input: \
-	Could not parse the color %s.\n"
-# define STR_ERR_MISSING_ELE "%s invalid input: Missing one element.\n"
-# define STR_ERR_DUP "%s invalid input: Element duplication.\n"
-# define STR_ERR_MALLOC "%s error : Could not allocate memory.\n"
-# define STR_ERR_MLX "%s mlx failed.\n"
+	Could not parse the color %s\n"
+# define STR_ERR_MISSING_ELE "%s invalid input: Missing one element\n"
+# define STR_ERR_DUP "%s invalid input: Element duplication\n"
+# define STR_ERR_MALLOC "%s error : Could not allocate memory\n"
+# define STR_ERR_MLX "%s mlx failed\n"
 
 typedef struct s_vec
 {
