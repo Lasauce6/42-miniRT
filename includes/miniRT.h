@@ -6,7 +6,7 @@
 /*   By: jili <jili@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/07 15:22:41 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/12 14:08:20 by jili             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 
 # define WIDTH 1500
 # define HEIGHT 1000
-# define MIN 1
-# define MAX 2
 
 typedef enum e_type
 {
