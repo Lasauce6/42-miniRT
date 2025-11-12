@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 14:12:13 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/21 12:57:45 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/12 13:26:09 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,18 @@ static bool	hit_sphere(t_ray *ray, t_sphere sphere, t_hit *rec)
 		return (false);
 	calc.sqrt = sqrt(calc.disc);
 	calc.root = (-calc.b - calc.sqrt) / calc.a;
-	if (calc.root <= rec->ray_tmin || rec->ray_tmax <= calc.root)
+	if (calc.root <= rec->ray_tmin || calc.root >= rec->ray_tmax)
 	{
 		calc.root = (-calc.b + calc.sqrt) / calc.a;
-		if (calc.root <= rec->ray_tmin || rec->ray_tmax <= calc.root)
+		if (calc.root <= rec->ray_tmin || calc.root >= rec->ray_tmax)
 			return (false);
 	}
 	rec->t = calc.root;
 	rec->point = ray_at(*ray, rec->t);
 	rec->normal = vec_sub(&rec->point, &sphere.pos);
 	rec->normal = normalize(&rec->normal);
+	if (vec_dot_product(&ray->dir, &rec->normal) > 0)
+		rec->normal = vec_mul_scalar(&rec->normal, -1);
 	return (true);
 }
 
