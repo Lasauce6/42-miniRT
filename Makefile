@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
+#    By: jili <jili@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:42:24 by rbaticle          #+#    #+#              #
-#    Updated: 2025/11/07 12:34:45 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/11/12 14:45:21 by jili             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS_NAMES = main.c \
 			 parsing/parse_light.c \
 			 parsing/parse_objs.c \
 			 parsing/parse_utils.c \
+			 parsing/parse_utils_2.c \
 			 utils/color.c \
 			 utils/numbers.c \
 			 utils/obj_utils.c \

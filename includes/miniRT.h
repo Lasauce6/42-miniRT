@@ -6,7 +6,7 @@
 /*   By: jili <jili@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/12 14:31:32 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/12 14:46:37 by jili             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_camera
 	t_vec		px00_loc;
 }	t_camera;
 
-typedef struct s_light//free
+typedef struct s_light
 {
 	t_vec			coords;
 	double			ratio;
@@ -164,7 +164,7 @@ typedef union u_obj
 	t_cylinder	cylinder;
 }	t_obj_union;
 
-typedef struct s_obj//free
+typedef struct s_obj
 {
 	t_obj_id		id;
 	t_obj_union		object;
@@ -244,6 +244,7 @@ int		parse_vector(char *str, t_vec *vec, t_type type);
 int		parse_color(char *str, t_rgb *color);
 int		parse_double(char *str, double *d, t_type type);
 int		parse_size_t(char *str, size_t *n, t_type type);
+int		ft_punctuation(char *str);
 
 // ## RT ##
 // ray.c
