@@ -6,7 +6,7 @@
 /*   By: jili <jili@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:13:06 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/07 13:30:55 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/12 14:08:20 by jili             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef enum e_type
 # define STR_ERR_DUP "%s invalid input: Element duplication.\n"
 # define STR_ERR_MALLOC "%s error : Could not allocate memory.\n"
 # define STR_ERR_MLX "%s mlx failed.\n"
-
+# define STR_ERR_PUN "%s invalid input : punctuation errors"
 typedef struct s_vec
 {
 	double	x;

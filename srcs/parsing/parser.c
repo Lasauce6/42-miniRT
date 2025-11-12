@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jili <jili@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:47:32 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/11/07 13:30:19 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/12 14:15:06 by jili             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,23 @@ static int	is_file_rt(char *filename)
 		return (0);
 }
 
+int ft_punctuation(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == '.' || str[i] == ',')
+		{
+			if (i == 0 || ft_isspace(str[i - 1]) || ft_isspace(str[i + 1]))
+				return (1);
+		}
+        i++;
+    }
+    return(0);
+}
+
 int	parse_file(char *filename, t_data *data)
 {
 	int		file;
@@ -99,8 +116,16 @@ int	parse_file(char *filename, t_data *data)
 	{
 		free(line);
 		line = get_next_line(file);
+		
 		if (line)
 		{
+			if (ft_punctuation(line) == 1)
+			{
+				message_error(STR_ERR_PUN, NULL, 1);
+				return (free(line), 1);
+			}
+				
+				
 			if (check_line(line, data, file))
 				return (free(line), 1);
 		}
