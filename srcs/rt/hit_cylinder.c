@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 14:51:57 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/21 12:59:01 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/12 13:30:33 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static bool	calc_hit_cylinder(t_hcalc calc, t_ray *ray, t_cylinder cylinder,
 	rec->t = calc.root;
 	rec->point = ray_at(*ray, calc.root);
 	rec->normal = calculate_normal(cylinder, rec->point);
+	if (vec_dot_product(&ray->dir, &rec->normal) > 0)
+		rec->normal = vec_mul_scalar(&rec->normal, -1);
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 15:18:36 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/10/21 17:24:21 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/11/12 13:16:04 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static double	calculate_light(t_vec pos, t_vec point, t_data *data,
 	light_rec = nearest_hit(&light, data);
 	light.dir = vec_sub(&light.origin, &point);
 	light.dir = normalize(&light.dir);
-	if (light_rec.t > 0.0 && light_rec.t + 1e-5 < magnitude)
+	if (light_rec.t > 0.0 && light_rec.t + 1e-1 < magnitude)
 		dotprod = -1.0;
 	else
 		dotprod = vec_dot_product(&rec->normal, &light.dir);
